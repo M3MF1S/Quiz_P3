@@ -1,0 +1,63 @@
+Create database Quiz
+Use Quiz
+
+drop table usuarios
+create table usuarios(
+id int primary key identity(1,1),
+nusuario nvarchar(15) not null,
+passw nvarchar(15) not null,
+nombre1 nvarchar(15),
+nombre2 nvarchar(15),
+apellido1 nvarchar(15),
+apellido2 nvarchar(15),
+)
+insert into usuarios(nusuario,passw,nombre1,nombre2,apellido1,apellido2) values('Admin','12345','Arturo','Miguel','Vidal','Gonzalez');
+
+drop table Viajeros
+create table Viajeros(
+id int primary key identity,
+cedula nvarchar(15)unique not null,
+nombre1 nvarchar(15) not null,
+nombre2 nvarchar(15),
+apellido1 nvarchar(15) not null,
+apellido2 nvarchar(15),
+FechaNacimiento DATE not null,
+correo nvarchar(15),
+telefono nvarchar(15),
+genero varchar check(genero>='H' or genero>='M') not null,
+idpais varchar(25),
+)
+insert into Viajeros(cedula,nombre1,nombre2,apellido1,apellido2,FechaNacimiento,correo,telefono,genero) 
+values('208590085','Matthias','David','Paniagua','Rodriguez','07/11/2004','matthiasp2004','87746218','H');
+
+drop table paises
+CREATE TABLE paises (
+    id INT PRIMARY KEY identity,
+    pais VARCHAR(25) NOT NULL UNIQUE,
+    codigo_iso CHAR(3) NOT NULL UNIQUE
+)
+insert into paises 
+
+
+
+drop table Documentos 
+Create table Documentos(
+id int primary key,
+ndocument int,
+tdocument nvarchar(12)unique not null,
+FechaExp DATEtime not null,
+Viajero_id int
+constraint FK_ViajeroDocumento FOREIGN KEY (Viajero_id) REFERENCES Viajeros(id)
+)
+
+
+drop table movimientos
+create table movimientos(
+Id int primary key,
+fecha DATETIME not null,
+tipoMov nvarchar CHECK(tipoMov>='Ingreso' OR tipoMov>= 'Salida') NOT NULL,
+origen nvarchar(25),
+destino nvarchar(25),
+Viajero_id int
+constraint FK_ViajeroMov FOREIGN KEY (Viajero_id) REFERENCES Viajeros(id)
+)
